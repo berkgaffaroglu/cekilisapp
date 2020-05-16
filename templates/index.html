@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% block content %}
+
+Bitis Tarihi: {{ deadline.strftime('%d-%m-%Y %H:%M') }}
+{% for katilan in katilanlar %}
+
+    
+
+    <div class="card mb-4 text-white bg-dark">
+        <div class="card-header">#{{ katilan.id }}</div>
+       
+        <div class="card-body">
+          <h5 class="card-title">Isim: {{katilan.isim}}</h5>
+          <h6 class="card-subtitle mb-2">Email: {{katilan.email}}</h6>
+          <p class="card-text">Katılma nedeni: {{ katilan.katilmanedeni }}</p>
+        </div>
+      </div>
+
+{% endfor %}
+
+{% endblock %}
