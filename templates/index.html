@@ -1,21 +1,116 @@
 {% extends 'base.html'%}
 {% block content %}
 
-Bitis Tarihi: {{ deadline.strftime('%d-%m-%Y %H:%M') }}
-{% for katilan in katilanlar %}
 
-    
+{% if kazananList|length != 0 %}
 
-    <div class="card mb-4 text-white bg-dark">
-        <div class="card-header">#{{ katilan.id }}</div>
-       
-        <div class="card-body">
-          <h5 class="card-title">Isim: {{katilan.isim}}</h5>
-          <h6 class="card-subtitle mb-2">Email: {{katilan.email}}</h6>
-          <p class="card-text">Katılma nedeni: {{ katilan.katilmanedeni }}</p>
-        </div>
-      </div>
+<strong>Çekiliş bitti!</strong>
+<strong>Kazananlar aşağıdaki listededir.</strong><hr>
+<ul>
+  <li>Eğer tekrar çekiliş başlatmak istiyorsanız <a href="{{url_for('reset')}}">tıklayın</a>.</li>
+</ul>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Isım</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Katılma Sebebi</th>
+    </tr>
+  </thead>
+  {% for kazanan in kazananList %}
+
+
+ 
+  <tbody>
+    <tr>
+      <th scope="row">{{ kazanan.id }}</th>
+      <td>{{ kazanan.isim }}</td>
+      <td>{{ kazanan.email }}</td>
+      <td>{{ kazanan.katilmanedeni }}</td>
+    </tr>
+  </tbody>
+
 
 {% endfor %}
+</table>
 
+
+
+<form method="POST" action="/reset">
+    <button class="btn btn-outline-info">Tekrar başlat!</button>
+</form>
+{% elif katilanlar|length == 0 and kazananList|length == 0 %}
+
+<strong>Çekilişe katılan kimse yok. Katılan biri olduğunda çekiliş otomatik olarak 30 saniye sonra bitecektir.</strong>
+<ul>
+  <li>Eğer test etmek istiyorsanız aşağıdan rastgele oluşturulacak kişi sayısını seçip 'Oluştur' butonuna tıklayın.</li>
+  <li>Eğer manuel olarak kişi girmek istiyorsanız <a href="{{url_for('katil')}}">tıklayın</a>.</li>
+</ul>
+<hr>
+
+
+
+<form method="POST" action="">
+  <div class="form-group">
+    {{ form.kisi_sayisi.label(class="form-control-label") }}
+    {% if form.kisi_sayisi.errors %}
+        {{ form.kisi_sayisi(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in form.kisi_sayisi.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% else %}
+        {{ form.kisi_sayisi(class="form-control form-control-lg", placeholder="Lütfen tam değer giriniz. Aksi halde 20 kişi oluşturulacaktır.") }}
+    {% endif %}
+  </div>
+  <div class="form-group">
+
+    {{form.submit(class="btn btn-outline-danger")}}
+ 
+
+
+  </div>
+</form>
+
+{% elif kazananList|length == 0 and katilanlar|length != 0 %}
+
+<h1>Bitiş Tarihi: <strong>{{ deadline.strftime('%d-%m-%Y %H:%M:%S') }}</strong></h1><hr>
+<ul>
+
+  <li>Uygulama UTC zaman dilimini kullanmaktadır. Türkiye'nin zaman diliminden 3 saat geridedir.</li>
+  <li>Bitiş tarihi geçmesine rağmen kazananların listesini göremiyorsanız sayfayı <a href="{{url_for('anasayfa')}}">yenileyin</a>.</li>
+</ul>
+
+<table class="table mb-4">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Isım</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Katılma Sebebi</th>
+      <th scope="col">Katılma Tarihi</th>
+    </tr>
+  </thead>
+{% for katilan in katilanlar %}
+
+
+ 
+  <tbody>
+    <tr>
+      <th scope="row">{{ katilan.id }}</th>
+      <td>{{katilan.isim}}</td>
+      <td>{{ katilan.email }}</td>
+      <td>{{ katilan.katilmanedeni }}</td>
+      <td>{{ katilan.katilmatarihi.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+    </tr>
+  </tbody>
+
+
+{% endfor %}
+</table>
+
+
+{% endif %}
 {% endblock %}

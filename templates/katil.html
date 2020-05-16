@@ -1,5 +1,16 @@
 {% extends 'base.html'%}
 {% block content %}
+{% if now > deadline %}
+
+
+<strong>Çekiliş bitti! Maalesef artık katılamazsınız.. Kazanan listesini görmek isterseniz <a href="{{url_for('anasayfa')}}">tıklayın</a></strong> 
+
+<hr>
+<form method="POST" action="/reset">
+    <button class="btn btn-outline-info">Tekrar başlat!</button>
+</form>
+
+{% else %}
 
 <div class="content-section">
     <form method="POST" action="">
@@ -30,7 +41,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.isim(class="form-control form-control-lg") }}
+                    {{ form.email(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
             <div class="form-group">
@@ -53,7 +64,7 @@
         </div>
     </form>
 </div>
-
+{% endif %}
 
 
 {% endblock %}
