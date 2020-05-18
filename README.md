@@ -10,4 +10,4 @@ http://cekilisapp.herokuapp.com/ linkine gittikten sonra kullanmaya başlanılab
 * Reset özelliği database'deki kazananları ve katılanlar tablolarındaki verileri siler, herşey sıfırdan başlar.
 * Mobil uyumludur.
 ## Kullanılan teknolojiler nelerdir?
-*Python* programlama dilinde yazılmış olup *Flask Micro Web Framework* kullanılmıştır. Büyük bir uygulama olmadığından modüler yapıdadır.
+*Python* programlama dilinde yazılmış olup *Flask Micro Web Framework* kullanılmıştır.
