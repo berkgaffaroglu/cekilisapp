@@ -21,7 +21,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 Pillow==7.1.2
-pipenv==2018.11.26
+pipenv==2022.1.8
 pycparser==2.20
 PyGithub==1.51
 PyJWT==1.7.1
