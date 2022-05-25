@@ -24,7 +24,7 @@ Pillow==7.1.2
 pipenv==2018.11.26
 pycparser==2.20
 PyGithub==1.51
-PyJWT==1.7.1
+PyJWT==2.4.0
 requests==2.23.0
 selenium==3.141.0
 six==1.14.0
